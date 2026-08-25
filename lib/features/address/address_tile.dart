@@ -30,8 +30,8 @@ class _AddressTileState extends State<AddressTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 56,
-      padding: const .all(8),
+      height: AppTokens.cellHeight,
+      padding: const .symmetric(horizontal: AppTokens.horizontalPadding),
       color: AppTokens.surface,
       child: Row(
         children: [
@@ -39,6 +39,7 @@ class _AddressTileState extends State<AddressTile> {
             child: Column(
               mainAxisAlignment: .center,
               crossAxisAlignment: .start,
+              spacing: AppTokens.verticalGap,
               children: [
                 Text(
                   widget.network,
@@ -47,7 +48,6 @@ class _AddressTileState extends State<AddressTile> {
                     color: AppTokens.textSecondary,
                   ),
                 ),
-                const SizedBox(height: 2),
                 Text(
                   widget.address,
                   style: const TextStyle(
