@@ -6,10 +6,9 @@ import 'package:wallet_test/features/transfers/transfer_repository.dart';
 
 class TransferStatusSyncService {
   TransferStatusSyncService({
-    required ApiClient api,
-    required ITransferRepository repository,
-  })  : _api = api,
-        _repository = repository;
+    required this._api,
+    required this._repository,
+  });
 
   final ApiClient _api;
   final ITransferRepository _repository;
