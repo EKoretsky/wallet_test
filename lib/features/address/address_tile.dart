@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:wallet_test/core/theme/app_tokens.dart';
 
 import 'package:wallet_test/features/address/address_tile_bloc.dart';
 
@@ -29,20 +30,20 @@ class _AddressTileState extends State<AddressTile> {
   Widget build(BuildContext context) {
     return Container(
       height: 56,
-      padding: const EdgeInsets.all(8),
-      color: Colors.white,
+      padding: const .all(8),
+      color: AppTokens.surface,
       child: Row(
         children: [
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: .center,
+              crossAxisAlignment: .start,
               children: [
                 Text(
                   widget.network,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Colors.grey,
+                    color: AppTokens.textSecondary,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -50,9 +51,9 @@ class _AddressTileState extends State<AddressTile> {
                   widget.address,
                   style: const TextStyle(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: AppTokens.textPrimary,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                 ),
               ],
             ),
