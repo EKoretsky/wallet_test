@@ -23,6 +23,7 @@ class _AddressTileState extends State<AddressTile> {
 
   @override
   void dispose() {
+    _bloc.close();
     super.dispose();
   }
 

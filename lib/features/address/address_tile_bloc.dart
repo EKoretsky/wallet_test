@@ -69,4 +69,11 @@ class AddressTileBloc extends Bloc<AddressTileEvent, AddressTileState> {
   Future<void> _onResetCopied(ResetCopied event, Emitter<AddressTileState> emit) async {
     emit(const AddressTileState());
   }
+
+  @override
+  Future<void> close() {
+    _resetTimer?.cancel();
+    _resetTimer = null;
+    return super.close();
+  }
 }
