@@ -4,11 +4,13 @@
 *.pyc
 *.swp
 .DS_Store
+.metadata
 .atom/
 .buildlog/
 .history/
 .svn/
 migrate_working_dir/
+.codex
 
 # IntelliJ IDEA / Android Studio
 *.iml
