@@ -30,11 +30,15 @@ class TransferStatusSyncService {
       response.data['status'] as String? ?? 'unknown',
     );
 
-    await _repository.applyStatus(
-      transfer,
-      status,
-      DateTime.now(),
-    );
+    try {
+      await _repository.applyStatus(
+        transfer,
+        status,
+        DateTime.now(),
+      );
+    } catch (_) {
+      throw const TransferSyncException.localPersistenceFailed();
+    }
 
     return status;
   }
@@ -59,9 +63,7 @@ class TransferStatusSyncService {
       }
 
       if (!_isRetryable(error)) {
-        throw TransferSyncException.fromHttpStatus(
-          error.response?.statusCode,
-        );
+        throw TransferSyncException.fromHttpStatus(error.response?.statusCode);
       }
 
       switch (retryIndex) {
@@ -70,9 +72,7 @@ class TransferStatusSyncService {
         case 1:
           await Future<void>.delayed(const Duration(milliseconds: 500));
         default:
-          throw TransferSyncException.fromHttpStatus(
-            error.response?.statusCode,
-          );
+          throw TransferSyncException.fromHttpStatus(error.response?.statusCode);
       }
 
       return _getStatus(

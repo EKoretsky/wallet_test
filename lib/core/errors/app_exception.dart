@@ -17,6 +17,12 @@ class TransferSyncException extends AppException {
     super.message,
   });
 
+  const TransferSyncException.localPersistenceFailed()
+    : super(
+        code: 'localPersistenceFailed',
+        message: 'Local persistence failed',
+      );
+
   factory TransferSyncException.fromHttpStatus(int? statusCode) {
     final code = switch (statusCode) {
       401 => 'unauthorized',
