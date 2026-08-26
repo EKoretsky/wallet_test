@@ -59,7 +59,9 @@ class TransferStatusSyncService {
       }
 
       if (!_isRetryable(error)) {
-        rethrow;
+        throw TransferSyncException.fromHttpStatus(
+          error.response?.statusCode,
+        );
       }
 
       switch (retryIndex) {
@@ -68,7 +70,9 @@ class TransferStatusSyncService {
         case 1:
           await Future<void>.delayed(const Duration(milliseconds: 500));
         default:
-          rethrow;
+          throw TransferSyncException.fromHttpStatus(
+            error.response?.statusCode,
+          );
       }
 
       return _getStatus(
