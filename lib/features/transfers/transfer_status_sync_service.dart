@@ -68,9 +68,9 @@ class TransferStatusSyncService {
 
       switch (retryIndex) {
         case 0:
-          await Future<void>.delayed(const Duration(milliseconds: 200));
+          await _waitForRetry(const Duration(milliseconds: 200), cancelToken);
         case 1:
-          await Future<void>.delayed(const Duration(milliseconds: 500));
+          await _waitForRetry(const Duration(milliseconds: 500), cancelToken);
         default:
           throw TransferSyncException.fromHttpStatus(error.response?.statusCode);
       }
@@ -82,6 +82,19 @@ class TransferStatusSyncService {
         retryIndex: retryIndex + 1,
       );
     }
+  }
+
+  Future<void> _waitForRetry(Duration delay, CancelToken? cancelToken) async {
+    if (cancelToken == null) {
+      return await Future<void>.delayed(delay);
+    }
+
+    await Future.any<void>([
+      Future<void>.delayed(delay),
+      cancelToken.whenCancel.then<void>((_) {
+        throw const CancelException();
+      }),
+    ]);
   }
 
   bool _isRetryable(DioException error) {
